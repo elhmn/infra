@@ -18,6 +18,10 @@ function uninstall_docker() {
 		for cmd in $commands; do
 			sudo apt-get purge --auto-remove $cmd -y
 		done
+
+		#delete docker content
+		sudo rm -rf /var/lib/docker
+		sudo rm -rf /var/lib/containerd
 	fi
 }
 
