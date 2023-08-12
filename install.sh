@@ -13,6 +13,16 @@ function install_webhook() {
 	fi
 }
 
+# we are installing ufw if it is not present on the host
+# let's note that ufw does not have an uninstall function
+# because we probably don't want to remove it from the host
+function install_ufw() {
+	if ! command_exist ufw; then
+		echo "Installing ufw"
+		sudo apt-get install ufw -y
+	fi
+}
+
 # Installing docker using instructions from:
 # https://docs.docker.com/engine/install/ubuntu
 function install_docker() {
@@ -47,6 +57,7 @@ LOGFILE=$LOGDIR/install.log
 	# ideally we would run it only once
 	update 1>/dev/null
 
+	install_ufw
 	install_webhook
 	install_docker
 } 2>&1 | tee $LOGFILE
