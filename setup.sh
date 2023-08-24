@@ -78,10 +78,10 @@ LOGFILE=$LOGDIR/setup.log
 
 	if [ "$1" = "manager" ]; then
 		setup_swarm_manager
+		setup_deployments
 	else
 		setup_swarm_worker
 	fi
 
-	setup_deployments
 	display_final
 } 2>&1 | tee $LOGFILE
